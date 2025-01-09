@@ -59,6 +59,7 @@
             this.Controls.Add(this.pbxImagen);
             this.Name = "frmIndex";
             this.Text = "Gestor De Artículos";
+            this.Load += new System.EventHandler(this.frmIndex_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             this.ResumeLayout(false);
