@@ -14,4 +14,4 @@ C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\ob
 C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\obj\Debug\TPFinalNivel2_Parente.exe
 C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\obj\Debug\TPFinalNivel2_Parente.pdb
 C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\bin\Debug\App.config
-C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\bin\Debug\negocio.dll.config
+C:\Users\mauro\Desktop\TpNv2Final\TPFinalNivel2_Parente\TPFinalNivel2_Parente\obj\Debug\TPFinalNivel2_Parente.FrmAltaArticulo.resources
