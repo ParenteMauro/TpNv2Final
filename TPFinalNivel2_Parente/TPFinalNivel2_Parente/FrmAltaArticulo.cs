@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,9 +51,9 @@ namespace TPFinalNivel2_Parente
                 articuloNegocio.agregar(articulo);
                 MessageBox.Show("Agregado Exitosamente");
             }
-            catch (Exception ex) 
+            catch (FormatException ex) 
             {
-                throw ex;
+                MessageBox.Show("Comprueba si tienes campos vacíos");
             }
             
         }
@@ -71,7 +72,19 @@ namespace TPFinalNivel2_Parente
 
         private void txtImagen_TextChanged(object sender, EventArgs e)
         {
-            pbxImagen.Load(txtImagen.Text);
+            try
+            {
+                pbxImagen.Load(txtImagen.Text);
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show("Imagen no encontrada");
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

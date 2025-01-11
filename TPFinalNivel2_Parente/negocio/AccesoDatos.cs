@@ -49,6 +49,13 @@ namespace negocio
             conexion.Open();
             comando.ExecuteReader();
         }
+
+        public void ejecutarAccion()
+        {
+            conexion.Open();
+            comando.ExecuteNonQuery();
+        }
+
         public void cerrarConexion()
         {
             conexion.Close();

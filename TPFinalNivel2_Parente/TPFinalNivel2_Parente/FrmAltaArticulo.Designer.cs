@@ -169,9 +169,12 @@
             // 
             // pbxImagen
             // 
+            this.pbxImagen.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pbxImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbxImagen.Location = new System.Drawing.Point(216, 12);
             this.pbxImagen.Name = "pbxImagen";
             this.pbxImagen.Size = new System.Drawing.Size(280, 286);
+            this.pbxImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxImagen.TabIndex = 16;
             this.pbxImagen.TabStop = false;
             // 
@@ -216,6 +219,7 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAgregar);
             this.Name = "FrmAltaArticulo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAltaArticulo";
             this.Load += new System.EventHandler(this.FrmAltaArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).EndInit();

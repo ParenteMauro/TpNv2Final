@@ -13,19 +13,24 @@ namespace negocio
     public class ArticulosNegocio
     {
         public AccesoDatos conexion = new AccesoDatos();
-        
+        public virtual string ObtenerConsultaSQL()
+        {
+            return "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A, MARCAS M , CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id;";
+        }
         public List<Articulo> listar()
         {
             List<Articulo> listaArticulos = new List<Articulo>();
+
             try
             {
-                conexion.setearConsulta("SELECT A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A, MARCAS M , CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id;");
+                conexion.setearConsulta(ObtenerConsultaSQL());
 
                 SqlDataReader lector = conexion.lectura();
                 
                 while (lector.Read()) 
                 {
                     Articulo articuloAux = new Articulo();
+                    articuloAux.Id = (int)lector["Id"];
                     articuloAux.Codigo = (string)lector["Codigo"];
                     articuloAux.Nombre = (string)lector["Nombre"];
                     articuloAux.Descripcion = (string)lector["Descripcion"];
@@ -76,5 +81,54 @@ namespace negocio
             }
 
         }
+        public void eliminar(int articuloId)
+        {
+            try
+            {
+                conexion.setearConsulta("DELETE FROM ARTICULOS WHERE Id = @Id"); ;
+                conexion.setearParametro("@Id", articuloId);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex) { throw ex; }
+            finally
+            {
+                conexion.cerrarConexion();  
+            }
+            
+        }
+    
+        public void buscar(string propiedad, string parametro, string busqueda)
+        {
+            
+            switch (parametro)
+            {
+                case "Empieza con":
+                    {
+                        conexion.setearConsulta("SELEC");
+                        break;
+                    }
+                case "Termina con":
+                    {
+                        
+                        break;
+                    }
+                case "Contiene":
+                    {
+                        
+                        break;
+
+                    }
+                case "Escribe el Código:":
+                    {
+
+                        conexion.setearParametro("@Codigo", busqueda);
+                        break;
+                    }
+
+            }
+
+        }
+      
+    
     }
 }
