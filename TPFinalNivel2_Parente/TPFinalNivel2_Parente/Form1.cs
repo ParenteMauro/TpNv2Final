@@ -208,6 +208,15 @@ namespace TPFinalNivel2_Parente
             dgvArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvArticulos.ReadOnly = true;   
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            
+            Articulo articuloModificar = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            FrmAltaArticulo frmAltaArticulo = new FrmAltaArticulo(articuloModificar);
+            frmAltaArticulo.ShowDialog();
+            cargarArticulos();
+        }
     }
 }
 
