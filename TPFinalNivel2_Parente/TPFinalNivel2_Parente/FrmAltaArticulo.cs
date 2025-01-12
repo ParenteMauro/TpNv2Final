@@ -62,6 +62,7 @@ namespace TPFinalNivel2_Parente
                     articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
                     articuloNegocio.agregar(articulo);
                     MessageBox.Show("Agregado Exitosamente");
+                    this.Close();
                 }
                 else
                 {
@@ -74,16 +75,14 @@ namespace TPFinalNivel2_Parente
                     articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
                     articuloNegocio.modificar(articulo);
                     MessageBox.Show("Modificado Exitosamente");
+                    this.Close();
                 }
             }
             catch (FormatException ex) 
             {
                 MessageBox.Show("Comprueba si tienes campos vacíos");
             }
-            finally
-            {
-                this.Close();
-            }
+            
         }
 
         private void cargarDatos()
@@ -135,14 +134,29 @@ namespace TPFinalNivel2_Parente
             {
                 pbxImagen.Load(txtImagen.Text);
             }
-            catch (FileNotFoundException ex)
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Imagen no encontrada");
-                
+
+            }
+            catch(ArgumentException ex)
+            {
+
+            }
+            catch(FileNotFoundException ex)
+            {
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Hubo un error, vuelve a intentarlo mas tarde");
+            }
+        }
+
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsDigit(e.KeyChar ) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

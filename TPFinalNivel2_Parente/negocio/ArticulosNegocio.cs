@@ -157,13 +157,27 @@ namespace negocio
             List<Articulo> listaFiltrada = new List<Articulo>();    
             try
             {
+                if (propiedad == "Marca" || propiedad == "Categoria")
+                {
+                    char x;
+                    if (propiedad == "Marca")
+                        x = 'M';
+                    else
+                        x = 'C';
 
-                
-                if(propiedad!= "Codigo")
+                    conexion.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id AS IdMarca ,M.Descripcion AS Marca, C.Id AS IdCategoria, C.Descripcion AS Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A, MARCAS M , CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id " + 
+                    "AND "+x+".Descripcion = '"+ criterio + "'" );
+
+                }
+
+                else if (propiedad!= "Codigo")
                     conexion.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id AS IdMarca ,M.Descripcion AS Marca, C.Id AS IdCategoria, C.Descripcion AS Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A, MARCAS M , CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id " +
                     "AND A."+ propiedad +" LIKE '" + validarFiltrado(criterio, filtro) + "'" );
 
+                
+
                 else
+                    if(filtro != "")
                     conexion.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id AS IdMarca ,M.Descripcion AS Marca, C.Id AS IdCategoria, C.Descripcion AS Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A, MARCAS M , CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id " +
                     "AND A." + propiedad + " LIKE '" + filtro + "'");
 
