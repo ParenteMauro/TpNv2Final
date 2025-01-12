@@ -303,6 +303,8 @@ namespace TPFinalNivel2_Parente
                 if (dgvArticulos.CurrentRow != null)
                 {
                     Articulo articuloModificar = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+                    articuloModificar.UrlImagen = (string)articuloModificar.UrlImagen;
                     FrmAltaArticulo frmAltaArticulo = new FrmAltaArticulo(articuloModificar);
                     frmAltaArticulo.ShowDialog();
                     cargarArticulos();
@@ -314,7 +316,7 @@ namespace TPFinalNivel2_Parente
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
         }
     }

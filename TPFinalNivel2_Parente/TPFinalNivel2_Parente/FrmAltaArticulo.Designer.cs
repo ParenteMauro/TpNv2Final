@@ -45,6 +45,7 @@
             this.pbxImagen = new System.Windows.Forms.PictureBox();
             this.cbxMarca = new System.Windows.Forms.ComboBox();
             this.cbxCategoria = new System.Windows.Forms.ComboBox();
+            this.btnImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,7 +173,7 @@
             // 
             this.pbxImagen.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.pbxImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pbxImagen.Location = new System.Drawing.Point(216, 12);
+            this.pbxImagen.Location = new System.Drawing.Point(239, 12);
             this.pbxImagen.Name = "pbxImagen";
             this.pbxImagen.Size = new System.Drawing.Size(280, 286);
             this.pbxImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -197,11 +198,22 @@
             this.cbxCategoria.Size = new System.Drawing.Size(100, 21);
             this.cbxCategoria.TabIndex = 18;
             // 
+            // btnImagen
+            // 
+            this.btnImagen.Location = new System.Drawing.Point(197, 122);
+            this.btnImagen.Name = "btnImagen";
+            this.btnImagen.Size = new System.Drawing.Size(16, 20);
+            this.btnImagen.TabIndex = 19;
+            this.btnImagen.Text = "🢘";
+            this.btnImagen.UseVisualStyleBackColor = true;
+            this.btnImagen.Click += new System.EventHandler(this.btnImagen_Click);
+            // 
             // FrmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 362);
+            this.ClientSize = new System.Drawing.Size(543, 362);
+            this.Controls.Add(this.btnImagen);
             this.Controls.Add(this.cbxCategoria);
             this.Controls.Add(this.cbxMarca);
             this.Controls.Add(this.pbxImagen);
@@ -248,5 +260,6 @@
         private System.Windows.Forms.PictureBox pbxImagen;
         private System.Windows.Forms.ComboBox cbxMarca;
         private System.Windows.Forms.ComboBox cbxCategoria;
+        private System.Windows.Forms.Button btnImagen;
     }
 }

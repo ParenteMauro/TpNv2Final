@@ -64,6 +64,8 @@ namespace negocio
                 conexion.setearParametro("@Descripcion", articulo.Descripcion);
                 conexion.setearParametro("@IdMarca", articulo.Marca.Id);
                 conexion.setearParametro("@IdCategoria", articulo.Categoria.Id);
+                if (articulo.UrlImagen == null)
+                    articulo.UrlImagen = "";
                 conexion.setearParametro("@Url", articulo.UrlImagen);
                 conexion.setearParametro("@Precio", articulo.Precio);
                 conexion.ejecutarLectura();

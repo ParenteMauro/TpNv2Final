@@ -27,8 +27,17 @@ namespace TPFinalNivel2_Parente
 
             listaMarcas = new MarcaNegocio();
             marcasLista = listaMarcas.listar();
-            
            
+            cbxMarca.DataSource = listaMarcas.listar();
+            cbxMarca.ValueMember = "Id";
+            cbxMarca.DisplayMember = "Descripcion";
+            
+
+            cbxCategoria.DataSource = listaCategorias.listar();
+            cbxCategoria.ValueMember = "Id";
+            cbxCategoria.DisplayMember = "Descripcion";
+            
+
         }
         public  FrmAltaArticulo (Articulo articulo)
         {
@@ -53,30 +62,56 @@ namespace TPFinalNivel2_Parente
             {
                 if (btnAgregar.Text != "Modificar")
                 {
-                    articulo.Codigo = txtCodigo.Text;
-                    articulo.Nombre = txtNombre.Text;
-                    articulo.Descripcion = txtDescripcion.Text;
-                    articulo.UrlImagen = txtImagen.Text;
-                    articulo.Marca = (Marca)cbxMarca.SelectedItem;
-                    articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
-                    articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
-                    articuloNegocio.agregar(articulo);
-                    MessageBox.Show("Agregado Exitosamente");
-                    this.Close();
+                    if (validarCarga() == true)
+                    {
+                        articulo = new Articulo();
+                        articulo.Codigo = (string)txtCodigo.Text;
+                        articulo.Nombre = (string)txtNombre.Text;
+                        articulo.Descripcion =(string)txtDescripcion.Text;
+
+                        if (txtImagen.Text != "") 
+                        {
+                            articulo.UrlImagen =(string)txtImagen.Text; 
+                        }
+
+                        articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                        articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                        articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
+
+                        articuloNegocio.agregar(articulo);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tiene Campos Vacíos");
+                    }
                 }
                 else
                 {
-                    articulo.Codigo = txtCodigo.Text;
-                    articulo.Nombre = txtNombre.Text;
-                    articulo.Descripcion = txtDescripcion.Text;
-                    articulo.UrlImagen = txtImagen.Text;
-                    articulo.Marca = (Marca)cbxMarca.SelectedItem;
-                    articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
-                    articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
-                    articuloNegocio.modificar(articulo);
-                    MessageBox.Show("Modificado Exitosamente");
-                    this.Close();
+                    if (validarCarga() == true)
+                    {
+                        
+                        articulo.Codigo =(string)txtCodigo.Text;
+                        articulo.Nombre =(string)txtNombre.Text;
+                        articulo.Descripcion = (string)txtDescripcion.Text;
+                        articulo.UrlImagen =(string)txtImagen.Text;
+                        articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                        articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                        articulo.Precio = Convert.ToDecimal(txtPrecio.Text);
+                        articuloNegocio.modificar(articulo);
+                        MessageBox.Show("Modificado Exitosamente");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tiene Campos Vacíos");
+                    }
+                    
                 }
+            }
+            catch(NullReferenceException ex)
+            {
+                MessageBox.Show("Campos vacíos detectados");
             }
             catch (FormatException ex) 
             {
@@ -84,7 +119,18 @@ namespace TPFinalNivel2_Parente
             }
             
         }
-
+        private bool validarCarga()
+        {
+            if (txtCodigo.Text != "" & txtNombre.Text
+                != "" && txtDescripcion.Text != "" && cbxMarca.SelectedItem != null && cbxCategoria.SelectedItem != null && txtPrecio.Text != "")
+            {
+                return true; 
+            }
+            else
+            {
+                return false; 
+            }
+        }
         private void cargarDatos()
         {
             try
@@ -132,31 +178,61 @@ namespace TPFinalNivel2_Parente
         {
             try
             {
-                pbxImagen.Load(txtImagen.Text);
+               cargarImagen(txtImagen.Text);
             }
-            catch (InvalidOperationException ex)
+            catch(Exception ex)
             {
-
-            }
-            catch(ArgumentException ex)
-            {
-
-            }
-            catch(FileNotFoundException ex)
-            {
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hubo un error, vuelve a intentarlo mas tarde");
+                cargarImagen("https://media.istockphoto.com/id/1354776457/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=w3OW0wX3LyiFRuDHo9A32Q0IUMtD4yjXEvQlqyYk9O4=");
             }
         }
-
+        private void cargarImagen(string url) 
+        {
+            pbxImagen.Load(url);
+        }
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(!char.IsDigit(e.KeyChar ) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btnImagen_Click(object sender, EventArgs e)
+        {
+            string directorioApp = Application.StartupPath;
+
+            // Esto lo que va a hacer es crear una carpeta en la dirección de la App para poder subirla localmente
+            string carpetaImagenes = Path.Combine(directorioApp, "Imagenes");
+            if (!Directory.Exists(carpetaImagenes))
+            {
+                Directory.CreateDirectory(carpetaImagenes);
+            }
+
+            OpenFileDialog archivo = new OpenFileDialog();
+            archivo.Filter = "*.jpg;*.png|*.jpg;*.png";
+
+            
+
+
+            
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                
+                string rutaDestino = Path.Combine(carpetaImagenes, Path.GetFileName(archivo.FileName));
+
+                try
+                {
+                    File.Copy(archivo.FileName, rutaDestino);
+                }
+                catch(IOException ex) 
+                {
+                    MessageBox.Show("La imagen que quieres Agregar ya existe en tu carpeta local");
+                }
+                txtImagen.Text = rutaDestino;
+
+                cargarImagen(rutaDestino);
+        
+                
             }
         }
     }
