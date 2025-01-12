@@ -187,8 +187,14 @@ namespace TPFinalNivel2_Parente
 
         private void btnFiltroAvanzado_Click(object sender, EventArgs e)
         {
+            
             try
             {
+                string propiedad = cbxPropiedad.Text;
+                string criterio = cbxCriterio.Text;
+                string filtroAvanzado = txtFiltroAvanzado.Text;
+                
+                dgvArticulos.DataSource = articulosNegocio.listar(propiedad,criterio,filtroAvanzado);
 
             }
             catch(Exception ex)
